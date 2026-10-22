@@ -490,12 +490,14 @@ export class MultilayerIjump extends GeneralizedAstarAutorouter {
           }
         }
         if (travelDir.wallDistance === Infinity) {
-          travelDirs3.push({
-            ...travelDir,
-            travelDistance: goalDistAlongTravelDir,
-            enterMarginCost: 0,
-            travelMarginCostFactor: 1,
-          })
+          if (isGoalInTravelDir && goalDistAlongTravelDir > 0) {
+            travelDirs3.push({
+              ...travelDir,
+              travelDistance: goalDistAlongTravelDir,
+              enterMarginCost: 0,
+              travelMarginCostFactor: 1,
+            })
+          }
         } else if (travelDir.wallDistance > this.largestMargin) {
           for (const { margin, enterCost, travelCostFactor } of this
             .marginsWithCosts) {
